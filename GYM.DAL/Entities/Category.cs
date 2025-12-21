@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace GYM.DAL.Entities
 {
-    internal class Category
+    public class Category : BaseEntity
     {
+        public string CategoryName { get; set; } = null!;
+        #region Category-Session Relationship
+        public ICollection<Session> Sessions { get; set; } = null!;
+        #endregion
     }
 }
