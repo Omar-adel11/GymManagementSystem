@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace GYM.DAL.Entities
 {
-    internal class Address
+    public class Address
     {
+        public int BuildingNo { get; set; }
+        public string Street { get; set; }
+        public string City { get; set; }
     }
 }

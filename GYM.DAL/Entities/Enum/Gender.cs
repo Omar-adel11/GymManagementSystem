@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace GYM.DAL.Entities.Enum
 {
-    internal class Gender
+    public enum Gender
     {
+        Male = 1,
+        Female
     }
 }
