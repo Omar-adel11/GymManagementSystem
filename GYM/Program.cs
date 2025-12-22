@@ -1,4 +1,6 @@
 using GYM.DAL.Data.Contexts;
+using GYM.DAL.Interfaces;
+using GYM.DAL.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 namespace GYM
@@ -11,11 +13,20 @@ namespace GYM
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+            //Context Injection
+
             builder.Services.AddDbContext<GYMDbContext>(options=>
             {
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
             });
-            
+
+            //Repository and Unit of Work Injection
+
+            builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+            builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+            builder.Services.AddScoped<IPlanRepository, PlanRepository>();
+
 
             var app = builder.Build();
 
@@ -26,6 +37,7 @@ namespace GYM
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
