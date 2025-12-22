@@ -147,17 +147,26 @@ namespace GYM.BLL.Services
         }
         public async Task<bool> UpdateMember(int id, MemberToUpdateViewModel memberModelView)
         {
-            var member = _unitOfWork.Repository<Member>().GetById(id);
-            if (member is not null)
+            try
             {
-                member.Email = memberModelView.Email;
-                member.phone = memberModelView.PhoneNumber;
-                member.Address.Street = memberModelView.Street;
-                member.Address.City = memberModelView.City;
-                member.Address.BuildingNo = memberModelView.BuildingNo;
+                var member = _unitOfWork.Repository<Member>().GetById(id);
+                if (member is null || checkEmailExistence(memberModelView.Email) || checkPhoneExistence(memberModelView.PhoneNumber)) return false;
+                else
+                {
+                    member.Email = memberModelView.Email;
+                    member.phone = memberModelView.PhoneNumber;
+                    member.Address.Street = memberModelView.Street;
+                    member.Address.City = memberModelView.City;
+                    member.Address.BuildingNo = memberModelView.BuildingNo;
+                }
+                _unitOfWork.Repository<Member>().Update(member);
+                return await _unitOfWork.SaveChangesAsync() > 0;
             }
-
-            return await _unitOfWork.SaveChangesAsync() > 0;
+            catch 
+            {
+                return false;
+            }
+           
 
         }
 
