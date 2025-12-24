@@ -1,12 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using GYM.BLL.ModelViews;
+using GYM.BLL.ModelViews.PlansModelViews;
 
-namespace GYM.BLL.Interfaces
+namespace GYM.BLL.Services.Interfaces
 {
-    internal interface IPlanService
+    public interface IPlanService
     {
+        Task<bool> UpdatePlan(int id, PlanToUpdateModelView input);
+        PlanToUpdateModelView? GetPlanToUpdate(int PlanId);
+        IEnumerable<PlanModelView> GetAllPlans();
+        PlanModelView? GetPlanById(int PlanId);
+        
     }
 }

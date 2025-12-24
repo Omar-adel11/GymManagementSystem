@@ -7,12 +7,15 @@ using System.Threading.Tasks;
 using GYM.DAL.Data.Contexts;
 using GYM.DAL.Entities;
 using GYM.DAL.Interfaces;
+using GymManagementDAL.Repositories.Interfaces;
 
 namespace GYM.DAL.Repositories
 {
-    public class UnitOfWork(GYMDbContext _context) : IUnitOfWork
+    public class UnitOfWork(GYMDbContext _context, ISessionRepository _sessionRepository) : IUnitOfWork
     {
         private readonly ConcurrentDictionary<string, object> _repositories = new();
+
+        public ISessionRepository sessionRepository { get => _sessionRepository; }
 
         public IPlanRepository PlanRepository()
         {
