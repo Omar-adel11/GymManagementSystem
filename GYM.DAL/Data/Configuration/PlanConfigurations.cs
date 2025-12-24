@@ -13,6 +13,7 @@ namespace GYM.DAL.Data.Configuration
     {
         public void Configure(EntityTypeBuilder<Plan> builder)
         {
+            
             builder.Property(p => p.Name).HasColumnType("varchar")
                                          .HasMaxLength(50);
             builder.Property(p => p.Description).HasColumnType("varchar")

@@ -21,7 +21,7 @@ namespace GYM.BLL.Services
             }
             var trainerModelViews = trainers.Select(t => new TrainerModelView
             {
-               Id = t.Id,
+                Id = t.Id,
                 Name = t.Name,
                 Email = t.Email,
                 Phone = t.phone,
@@ -46,7 +46,11 @@ namespace GYM.BLL.Services
                 Email = trainer.Email,
                 Phone = trainer.phone,
                 Specialization = trainer.Specialities.ToString(),
-               
+                DateOfBirth = trainer.DateOfBirth,
+                Street = trainer.Address?.Street,
+                City = trainer.Address?.City,
+                BuildingNo = trainer.Address?.BuildingNo.ToString()
+
             };
 
             return trainerModelView;
