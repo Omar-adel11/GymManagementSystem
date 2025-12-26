@@ -14,9 +14,9 @@ namespace GYM.DAL.Entities
             get
             {
                 if (EndDate >= DateTime.Now)
-                    return "Expired";
-                else
                     return "Active";
+                else
+                    return "Expired";
             }
             
         }

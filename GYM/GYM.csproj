@@ -7,6 +7,37 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Include="wwwroot\images\about p1.jpg" />
+    <None Include="wwwroot\images\about p2.jpg" />
+    <None Include="wwwroot\images\about p3.jpg" />
+    <None Include="wwwroot\images\action dots.jpg" />
+    <None Include="wwwroot\images\card-header.jpg" />
+    <None Include="wwwroot\images\dumbbell.jpg" />
+    <None Include="wwwroot\images\edit.jpg" />
+    <None Include="wwwroot\images\Ellipse 7.jpg" />
+    <None Include="wwwroot\images\facebook-f.jpg" />
+    <None Include="wwwroot\images\feature icon.jpg" />
+    <None Include="wwwroot\images\icon.jpg" />
+    <None Include="wwwroot\images\icon.svg" />
+    <None Include="wwwroot\images\info 1.jpg" />
+    <None Include="wwwroot\images\line-md_phone-filled.jpg" />
+    <None Include="wwwroot\images\logo.jpg" />
+    <None Include="wwwroot\images\mdi_whatsapp.jpg" />
+    <None Include="wwwroot\images\message icon.jpg" />
+    <None Include="wwwroot\images\phone icon.jpg" />
+    <None Include="wwwroot\images\search icon.jpg" />
+    <None Include="wwwroot\images\star.svg" />
+    <None Include="wwwroot\images\Theo Vance.jpg" />
+    <None Include="wwwroot\images\twitter.jpg" />
+    <None Include="wwwroot\images\why us images.jpg" />
+    <None Include="wwwroot\images\why us images.svg" />
+    <None Include="wwwroot\images\workout 1.jpg" />
+    <None Include="wwwroot\images\workout 2.jpg" />
+    <None Include="wwwroot\images\workout 3.jpg" />
+    <None Include="wwwroot\images\x-circle 1.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="9.0.11">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>

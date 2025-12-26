@@ -1,4 +1,6 @@
+using GYM.BLL.Interfaces;
 using GYM.BLL.Mapping;
+using GYM.BLL.Services;
 using GYM.DAL.Data;
 using GYM.DAL.Data.Contexts;
 using GYM.DAL.Interfaces;
@@ -30,6 +32,7 @@ namespace GYM
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             builder.Services.AddScoped<IPlanRepository, PlanRepository>();
+            builder.Services.AddScoped<IAnalyticsService, AnalyticsService>();
 
             builder.Services.AddScoped<ISessionRepository, SessionRepository>();
 
