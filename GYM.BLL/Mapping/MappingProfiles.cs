@@ -30,6 +30,7 @@ namespace GYM.BLL.Mapping
             #region Member
             CreateMap<DAL.Entities.Member, MemeberModelView>()
                                                  .ForMember(dest => dest.Gender, opt => opt.MapFrom(src => src.Gender.ToString()))
+                                                 .ForMember(dest => dest.PhoneNumber, opt => opt.MapFrom(src => src.phone))
                                                  .ForMember(dest => dest.BirthDate, opt => opt.MapFrom(src => src.DateOfBirth.ToString("yyyy-MM-dd")))
                                                  .ForMember(dest => dest.Address,opt => opt.MapFrom(src => $"{src.Address.BuildingNo}, {src.Address.Street}, {src.Address.City}"));
 
@@ -37,20 +38,23 @@ namespace GYM.BLL.Mapping
             CreateMap<HealthRecord, HealthRecordModelView>().ReverseMap();
 
             CreateMap<CreateMemberModelView, DAL.Entities.Member>()
-                                                .ForMember(dest => dest.Address,opt => opt.MapFrom(src => src))
-                                                .ForMember(dest => dest.HealthRecord,opt => opt.MapFrom(src => src.HealthRecord));
-
+                                                .ForMember(dest => dest.phone, opt => opt.MapFrom(src => src.PhoneNumber))
+                                                .ForMember(dest => dest.Address, opt => opt.MapFrom(src => src))
+                                                .ForMember(dest => dest.HealthRecord, opt => opt.MapFrom(src => src.HealthRecord));
+                                                
             CreateMap<CreateMemberModelView, Address>()
                                                 .ForMember(dest => dest.Street, opt => opt.MapFrom(src=>src.Street))
                                                 .ForMember(dest => dest.City, opt => opt.MapFrom(src=>src.City))
                                                 .ForMember(dest => dest.BuildingNo, opt => opt.MapFrom(src=>src.BuildingNo));
 
             CreateMap<DAL.Entities.Member, MemberToUpdateViewModel>()
+                                                .ForMember(dest => dest.PhoneNumber, opt => opt.MapFrom(src => src.phone))
                                                 .ForMember(dest => dest.Street, opt => opt.MapFrom(src => src.Address.Street))
                                                 .ForMember(dest => dest.City, opt => opt.MapFrom(src => src.Address.City))
                                                 .ForMember(dest => dest.BuildingNo, opt => opt.MapFrom(src => src.Address.BuildingNo));
 
             CreateMap<MemberToUpdateViewModel, DAL.Entities.Member>()
+                                                .ForMember(dest => dest.phone, opt => opt.MapFrom(src => src.PhoneNumber))
                                                 .ForMember(dest => dest.Name, opt => opt.Ignore())
                                                 .ForMember(dest => dest.Photo, opt => opt.Ignore())
                                                 .AfterMap((src, dest) =>

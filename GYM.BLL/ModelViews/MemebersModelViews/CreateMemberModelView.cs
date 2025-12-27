@@ -29,7 +29,7 @@ namespace GYM.BLL.ModelViews.MemebersModelViews
         public string PhoneNumber { get; set; } = string.Empty;
 
         [Required(ErrorMessage = "Gender is required")]
-        [MaxLength(6, ErrorMessage = "Gender can't exceed 6 characters")]
+       
         public Gender Gender { get; set; } 
 
         public string? Photo { get; set; }

@@ -34,19 +34,21 @@ namespace GYM.BLL.Services
                 var memberViewModel = _mapper.Map<MemeberModelView>(member);
                 
                 //active membership
-                var activeMembership = _unitOfWork.Repository<Membership>().GetAll(x => x.Id == memberId && x.Status == "Active").FirstOrDefault();
+                var activeMembership = _unitOfWork.Repository<Membership>().GetAll(x => x.MemberId == memberId && x.Status == "Active").FirstOrDefault();
                 if (activeMembership != null)
                 {
                     memberViewModel.MembershipStartDate = activeMembership.CreateAt.ToString("yyyy-MM-dd");
                     memberViewModel.MembershipEndDate = activeMembership.EndDate.ToString("yyyy-MM-dd");
+
+                    //plan name
+                    var plan = _unitOfWork.PlanRepository().GetById(activeMembership.PlanId);
+                    if (plan != null)
+                    {
+                        memberViewModel.PlanName = plan.Name;
+                    }
                 }
 
-                //plan name
-                var plan = _unitOfWork.PlanRepository().GetById(activeMembership.PlanId);
-                if (plan != null)
-                {
-                    memberViewModel.PlanName = plan.Name;
-                }
+              
 
                 return memberViewModel;
             }
@@ -96,7 +98,10 @@ namespace GYM.BLL.Services
             try
             {
                 var member = _unitOfWork.Repository<Member>().GetById(id);
-                if (member is null || checkEmailExistence(memberModelView.Email) || checkPhoneExistence(memberModelView.PhoneNumber)) return false;
+                var emailExists = _unitOfWork.Repository<Member>().GetAll(m => m.Email == member.Email && m.Id != member.Id).Any();
+                var PhoneExists = _unitOfWork.Repository<Member>().GetAll(m => m.phone == member.phone && m.Id != member.Id).Any();
+
+                if (member is null || emailExists || PhoneExists) return false;
                 else
                 {
                     _mapper.Map(memberModelView, member);

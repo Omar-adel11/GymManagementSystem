@@ -10,7 +10,7 @@ namespace GYM.BLL.ModelViews.MemebersModelViews
     public class MemberToUpdateViewModel
     {
         public string Name { get; set; } = null!;
-        public string Photo { get; set; } = null!;
+        public string? Photo { get; set; } = null!;
 
         [Required(ErrorMessage = "Email is required")]
         [EmailAddress(ErrorMessage = "Invalid email format")]
