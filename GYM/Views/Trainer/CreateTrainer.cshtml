@@ -1,0 +1,105 @@
+﻿@using GYM.DAL.Entities.Enum
+@model TrainerToBeCreatedModelView
+<div class="container mt-4">
+    <header class="mb-4">
+        <h3 class="text-primary-color">Add New Trainer</h3>
+    </header>
+
+    <form method="post"  asp-action="CreateTrainer">
+
+        <!-- Trainer Info -->
+        <div class="section-header mb-3">
+            <h5 class="text-primary fw-bold">Personal Information</h5>
+            <hr class="mt-2">
+        </div>
+        <div class="row g-3">
+            <div class="col-12 col-md-6">
+                <label asp-for="Name" class="form-label"></label>
+                <input asp-for="Name" type="text" class="form-control" />
+                <span asp-validation-for="Name"></span>
+            </div>
+
+            <div class="col-12 col-md-6">
+                <label asp-for="Email" class="form-label"></label>
+                <input asp-for="Email" type="text" class="form-control" />
+                <span asp-validation-for="Email"></span>
+            </div>
+
+            <div class="col-12 col-md-6">
+                <label asp-for="Phone" class="form-label"></label>
+                <input asp-for="Phone" type="text" class="form-control" />
+                <span asp-validation-for="Phone"></span>
+            </div>
+
+            <div class="col-12 col-md-6">
+                <label asp-for="DateOfBirth" class="form-label"></label>
+                <input asp-for="DateOfBirth" type="text" class="form-control" />
+                <span asp-validation-for="DateOfBirth"></span>
+            </div>
+
+            <div class="col-12 col-md-6">
+                <label asp-for="Gender" class="form-label">Gender</label>
+                <select asp-for="Gender"
+                        asp-items="Html.GetEnumSelectList<Gender>()"
+                        class="form-select">
+                    <option value="">-- Select Gender --</option>
+                </select>
+            </div>
+
+        </div>
+        <div class="section-header mb-3 mt-4">
+            <h5 class="text-primary fw-bold">Address Information</h5>
+            <hr class="mt-2">
+        </div>
+        <div class="row g-3">
+
+            <div class="col-12 col-md-6">
+                <label asp-for="BuildingNo" class="form-label"></label>
+                <input asp-for="BuildingNo" type="text" class="form-control" />
+                <span asp-validation-for="BuildingNo"></span>
+            </div>
+
+            <div class="col-12 col-md-6">
+                <label asp-for="Street" class="form-label"></label>
+                <input asp-for="Street" type="text" class="form-control" />
+                <span asp-validation-for="Street"></span>
+            </div>
+            <div class="col-12 col-md-6">
+                <label asp-for="City" class="form-label"></label>
+                <input asp-for="City" type="text" class="form-control" />
+                <span asp-validation-for="City"></span>
+            </div>
+        </div>
+        <!-- Professional Information -->
+        <div class="section-header mb-3">
+            <h5 class="text-primary fw-bold">Professional Information</h5>
+            <hr class="mt-2">
+        </div>
+        <div class="row g-3">
+            <div class="col-12">
+                <label asp-for="Specialization" class="form-label fw-semibold">
+                    Specializations <span class="text-danger">*</span>
+                </label>
+
+                @foreach (Specialities item in Enum.GetValues(typeof(Specialities)))
+                {
+                    <div class="form-check">
+                        <input asp-for="Specialization"
+                               class="form-check-input"
+                               type="radio"
+                               value="@item" />
+                        <label class="form-check-label">@item</label>
+                    </div>
+                }
+
+
+                <span asp-validation-for="Specialization" class="text-danger"></span>
+            </div>
+        </div>
+
+        <footer class="d-flex justify-content-end mt-4">
+            <button type="submit" class="btn btn-fill">Add</button>
+        </footer>
+    </form>
+
+</div>

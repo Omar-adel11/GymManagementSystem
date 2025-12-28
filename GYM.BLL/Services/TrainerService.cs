@@ -26,7 +26,7 @@ namespace GYM.BLL.Services
         public TrainerModelView? GetTrainerDetails(int id)
         {
             var trainer = _unitOfWork.Repository<Trainer>().GetById(id);
-            if (trainer == null || checkEmailExistence(trainer.Email) || checkPhoneExistence(trainer.phone) )
+            if (trainer == null)
             {
                 return null;
             }
@@ -73,7 +73,9 @@ namespace GYM.BLL.Services
         public async Task<bool> UpdateTrainer(int id, TrainerToBeUpdatedModelView trainerToBeUpdatedModelView)
         {
             var trainer = _unitOfWork.Repository<Trainer>().GetById(id);
-            if (trainer == null  || checkEmailExistence(trainer.Email) || checkPhoneExistence(trainer.phone))
+            var emailExists = _unitOfWork.Repository<Trainer>().GetAll(x=>x.Email == trainerToBeUpdatedModelView.Email && x.Id != id).Any();
+            var PhoneExists = _unitOfWork.Repository<Trainer>().GetAll(x=>x.phone == trainerToBeUpdatedModelView.Email && x.Id != id).Any();
+            if (trainer == null  || emailExists || PhoneExists)
             {
                 return false;
             }

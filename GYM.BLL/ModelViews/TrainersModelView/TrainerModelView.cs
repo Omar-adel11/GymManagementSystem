@@ -17,6 +17,8 @@ namespace GYM.BLL.ModelViews.TrainersModelView
         public DateTime? DateOfBirth { get; set; }
         public string? Street { get; set; } 
         public string? City { get; set; } 
-        public string? BuildingNo { get; set; } 
+        public string? BuildingNo { get; set; }
+
+        public string? Address => $"{BuildingNo}-{Street}-{City}";
     }
 }

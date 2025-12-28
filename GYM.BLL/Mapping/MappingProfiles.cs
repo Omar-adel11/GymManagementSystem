@@ -91,7 +91,8 @@ namespace GYM.BLL.Mapping
                                                   .ForMember(dest => dest.BuildingNo, opt => opt.MapFrom(src => src.Address.BuildingNo))
                                                   .ForMember(dest => dest.Specialization, opt => opt.MapFrom(src => src.Specialities.ToString()));
 
-            CreateMap<TrainerToBeCreatedModelView, Trainer>().ForMember(dest => dest.Address, opt => opt.MapFrom(src => src));
+            CreateMap<TrainerToBeCreatedModelView, Trainer>().ForMember(dest => dest.Address, opt => opt.MapFrom(src => src))
+                                                  .ForMember(dest => dest.Specialities, opt => opt.MapFrom(src => src.Specialization));
 
             CreateMap<TrainerToBeCreatedModelView, Address>().ForMember(dest => dest.Street, opt => opt.MapFrom(src => src.Street))
                                                   .ForMember(dest => dest.City, opt => opt.MapFrom(src => src.City))
@@ -99,6 +100,7 @@ namespace GYM.BLL.Mapping
 
             CreateMap<Trainer, TrainerToBeUpdatedModelView>().ForMember(dest => dest.Street, opt => opt.MapFrom(src => src.Address.Street))
                                                   .ForMember(dest => dest.City, opt => opt.MapFrom(src => src.Address.City))
+                                                  .ForMember(dest => dest.Specialization, opt => opt.MapFrom(src => src.Specialities))
                                                   .ForMember(dest => dest.BuildingNo, opt => opt.MapFrom(src => src.Address.BuildingNo));
 
             CreateMap<TrainerToBeUpdatedModelView, Trainer>().AfterMap((src, dest) =>
