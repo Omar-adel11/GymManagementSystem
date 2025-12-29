@@ -75,7 +75,7 @@ namespace GYM.Controllers
 
         }
 
-        public async Task<IActionResult> MemberEdit(int id)
+        public IActionResult MemberEdit(int id)
         {
             if(id <= 0)
             {

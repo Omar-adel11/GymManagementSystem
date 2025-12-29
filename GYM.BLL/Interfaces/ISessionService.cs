@@ -15,6 +15,11 @@ namespace GYM.BLL.Interfaces
         UpdateSession? GetSessionToUpdate(int sessionId);
         Task<bool> UpdateSession(int sessionId, UpdateSession input);
         Task<bool>  RemoveSession(int sessionId);
-       
+
+        public IEnumerable<TrainerSelectViewModel> GetTrainersDropdown();
+
+        public IEnumerable<CategorySelectViewModel> GetCategoriesDropdown();
+
+
     }
 }

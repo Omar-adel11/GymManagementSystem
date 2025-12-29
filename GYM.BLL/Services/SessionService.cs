@@ -104,9 +104,22 @@ namespace GYM.BLL.Services
                 return await _unitOfWork.SaveChangesAsync() > 0;
             }
 
+        public IEnumerable<CategorySelectViewModel> GetCategoriesDropdown()
+        {
+            var categories = _unitOfWork.Repository<Category>().GetAll();
+            return _mapper.Map<IEnumerable<CategorySelectViewModel>>(categories);
+        }
 
-            #region Helper Methods
-            private bool IsTrainerExist(int trainerId)
+        public IEnumerable<TrainerSelectViewModel> GetTrainersDropdown()
+        {
+            var trainers = _unitOfWork.Repository<Trainer>().GetAll();
+            return _mapper.Map<IEnumerable<TrainerSelectViewModel>>(trainers);
+        }
+
+
+
+        #region Helper Methods
+        private bool IsTrainerExist(int trainerId)
             {
                 var trainer = _unitOfWork.Repository<Trainer>().GetById(trainerId);
                 return trainer is null ? false : true;
@@ -134,7 +147,7 @@ namespace GYM.BLL.Services
             private bool IsSessionAvailableForRemove(Session session)
             {
                 if (session is null) return false;
-                if (session.StartDate > DateTime.UtcNow) return false;
+                if (session.StartDate < DateTime.UtcNow) return false;
                 if (session.StartDate <= DateTime.UtcNow && session.EndDate > DateTime.UtcNow) return false;
 
                 var hasActiveBookings = _unitOfWork.sessionRepository.GetCountOfBookedSlots(session.Id);

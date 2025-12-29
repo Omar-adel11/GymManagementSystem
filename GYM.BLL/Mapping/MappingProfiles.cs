@@ -25,6 +25,9 @@ namespace GYM.BLL.Mapping
 
             CreateMap<CreateSessionModelView, Session>();
             CreateMap<UpdateSession, Session>().ReverseMap();
+
+            CreateMap<Category, CategorySelectViewModel>().ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.CategoryName));
+            CreateMap<Trainer, TrainerSelectViewModel>();
             #endregion
 
             #region Member
