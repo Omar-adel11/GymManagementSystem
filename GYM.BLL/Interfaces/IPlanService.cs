@@ -9,6 +9,8 @@ namespace GYM.BLL.Services.Interfaces
         PlanToUpdateModelView? GetPlanToUpdate(int PlanId);
         IEnumerable<PlanModelView> GetAllPlans();
         PlanModelView? GetPlanById(int PlanId);
-        
+        Task<bool> ToggleStatus(int id);
+
+
     }
 }

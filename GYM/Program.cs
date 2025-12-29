@@ -1,10 +1,12 @@
 using GYM.BLL.Interfaces;
 using GYM.BLL.Mapping;
 using GYM.BLL.Services;
+using GYM.BLL.Services.Interfaces;
 using GYM.DAL.Data;
 using GYM.DAL.Data.Contexts;
 using GYM.DAL.Interfaces;
 using GYM.DAL.Repositories;
+using GymManagementBLL.Services.Classes;
 using GymManagementDAL.Repositories.Classes;
 using GymManagementDAL.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
@@ -37,6 +39,7 @@ namespace GYM
             builder.Services.AddScoped<ISessionRepository, SessionRepository>();
             builder.Services.AddScoped<IMemberService, MemberService>();
             builder.Services.AddScoped<ITrainerService, TrainerService>();
+            builder.Services.AddScoped<IPlanService, PlanService>();
 
             builder.Services.AddAutoMapper(x => x.AddProfile(new MappingProfiles()));
 

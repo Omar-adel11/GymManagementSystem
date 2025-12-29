@@ -56,7 +56,7 @@ namespace GymManagementBLL.Services.Classes
         {
             var plan = _unitOfWork.Repository<Plan>().GetById(id);
 
-            if (plan is null || HasActiveMemberships(id))
+            if (plan is null || plan.IsActive == false || HasActiveMemberships(id))
                 return false;
 
             _mapper.Map(input, plan);
@@ -66,7 +66,23 @@ namespace GymManagementBLL.Services.Classes
 
         }
 
-
+        public async Task<bool> ToggleStatus(int id)
+        {
+            try
+            {
+                var repo = _unitOfWork.Repository<Plan>();
+                var plan = repo.GetById(id);
+                if (plan is null || HasActiveMemberships(id)) return false;
+                plan.IsActive = plan.IsActive == true ? false : true;
+                plan.UpdateAt = DateTime.Now;
+                repo.Update(plan);
+                return await _unitOfWork.SaveChangesAsync() > 0;
+            }catch
+            {
+                return false;
+            }
+          
+        }
         #region Helper Methods
 
         private bool HasActiveMemberships(int PlanId)

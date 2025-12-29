@@ -71,8 +71,9 @@ namespace GYM.BLL.Mapping
 
             #region Plan
             CreateMap<Plan, PlanModelView>();
-            CreateMap<PlanToUpdateModelView, Plan>().ForMember(dest => dest.PlanMembers,opt => opt.MapFrom(src => src.PlanName));
-            CreateMap<Plan, PlanToUpdateModelView>().AfterMap((src, dest) =>
+            CreateMap<PlanToUpdateModelView, Plan>().ForMember(dest => dest.Name,opt => opt.MapFrom(src => src.PlanName));
+            CreateMap<Plan, PlanToUpdateModelView>().ForMember(dest => dest.PlanName, opt => opt.MapFrom(src => src.Name))
+                .AfterMap((src, dest) =>
             {
                 src.Price = dest.Price;
                 src.Name = dest.PlanName;
