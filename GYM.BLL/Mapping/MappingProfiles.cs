@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
 using AutoMapper.Execution;
+using GYM.BLL.ModelViews.MembershipsViewModel;
 using GYM.BLL.ModelViews.MemebersModelViews;
 using GYM.BLL.ModelViews.PlansModelViews;
 using GYM.BLL.ModelViews.SessionsModelViews;
@@ -121,7 +122,17 @@ namespace GYM.BLL.Mapping
             });
             #endregion
 
+            #region Membership
+            CreateMap<Membership, MembershipViewModel>().ForMember(dest => dest.MemberName, opt => opt.MapFrom(src => src.Member.Name))
+                                                       .ForMember(dest => dest.PlanName, opt => opt.MapFrom(src => src.Plan.Name))
+                                                       .ForMember(dest => dest.StartDate, opt => opt.MapFrom(src => src.CreateAt));
+            CreateMap<DAL.Entities.Member, MemberSelectListViewModel>();
+            CreateMap<DAL.Entities.Plan, PlanSelectListViewModel>();
 
+             
+
+            CreateMap<CreateMembershipModelView, Membership>();
+            #endregion
         }
     }
 }

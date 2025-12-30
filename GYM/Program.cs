@@ -46,6 +46,8 @@ namespace GYM
             builder.Services.AddScoped<ISessionService, SessionService>();
             builder.Services.AddScoped<IAttachementService, AttachementService>();
             builder.Services.AddScoped<IAccountService, AccountService>();
+            builder.Services.AddScoped<IMembershipRepository, MembershipRepository>();
+            builder.Services.AddScoped<IMembershipService, MembershipService>();
 
             builder.Services.AddAutoMapper(x => x.AddProfile(new MappingProfiles()));
 

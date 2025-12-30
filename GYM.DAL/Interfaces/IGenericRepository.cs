@@ -19,6 +19,8 @@ namespace GYM.DAL.Interfaces
 
         void Delete(int id);
 
+       
+
 
     }
 }

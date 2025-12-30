@@ -11,11 +11,13 @@ using GymManagementDAL.Repositories.Interfaces;
 
 namespace GYM.DAL.Repositories
 {
-    public class UnitOfWork(GYMDbContext _context, ISessionRepository _sessionRepository) : IUnitOfWork
+    public class UnitOfWork(GYMDbContext _context, ISessionRepository _sessionRepository,IMembershipRepository _membershipRepositpry) : IUnitOfWork
     {
         private readonly ConcurrentDictionary<string, object> _repositories = new();
 
         public ISessionRepository sessionRepository { get => _sessionRepository; }
+
+        
 
         public IPlanRepository PlanRepository()
         {
@@ -50,6 +52,11 @@ namespace GYM.DAL.Repositories
         public async Task<int> SaveChangesAsync()
         {
             return await _context.SaveChangesAsync();
+        }
+
+        IMembershipRepository IUnitOfWork.MembershipRepository()
+        {
+            return _membershipRepositpry; 
         }
     }
 }

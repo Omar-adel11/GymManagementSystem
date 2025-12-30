@@ -13,6 +13,7 @@ namespace GYM.DAL.Interfaces
         IGenericRepository<TEntity> Repository<TEntity>() where TEntity : BaseEntity, new();
         ISessionRepository sessionRepository { get; }
         IPlanRepository PlanRepository();
+         IMembershipRepository MembershipRepository();
         Task<int> SaveChangesAsync();
     }
 }

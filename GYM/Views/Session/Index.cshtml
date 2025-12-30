@@ -5,19 +5,19 @@
 }
 
 
-@if (TempData["SuccessMessage"] != null)
+@if (TempData["Message"] != null)
 {
     <div id="Alert" class="alert alert-success alert-dismissible fade show">
         <i class="bi bi-check-circle-fill me-2"></i>
-        @TempData["SuccessMessage"]
+        @TempData["Message"]
         <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
     </div>
 }
-else if (TempData["ErrorMessage"] != null)
+else if (TempData["Error"] != null)
 {
     <div id="Alert" class="alert alert-danger alert-dismissible fade show">
         <i class="bi bi-exclamation-triangle-fill me-2"></i>
-        @TempData["ErrorMessage"]
+        @TempData["Error"]
         <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
     </div>
 }
