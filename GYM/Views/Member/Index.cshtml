@@ -49,7 +49,9 @@
                         <tr>
                             <td>
                                 <span class="avatar">
-                                    <img src="@(string.IsNullOrEmpty(member.Photo) ? "~/images/User.jpg" : member.Photo)"
+                                    <img src="@(string.IsNullOrEmpty(member.Photo)
+                                                 ? Url.Content("~/images/members/User.jpg")
+                                                 : Url.Content("~/images/members/" + member.Photo))"
                                          asp-append-version="true"
                                          class="rounded-circle"
                                          alt="Default Avatar" class="rounded-circle"

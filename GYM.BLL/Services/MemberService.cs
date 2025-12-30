@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
+using GYM.BLL.AttachementService;
 using GYM.BLL.Interfaces;
 using GYM.BLL.ModelViews.MemebersModelViews;
 using GYM.BLL.ModelViews.TrainersModelView;
@@ -12,7 +13,7 @@ using GYM.DAL.Interfaces;
 
 namespace GYM.BLL.Services
 {
-    public class MemberService(IUnitOfWork _unitOfWork, IMapper _mapper) : IMemberService
+    public class MemberService(IUnitOfWork _unitOfWork, IMapper _mapper, IAttachementService _attachementService) : IMemberService
     {
 
         public ICollection<MemeberModelView> GetAllMembers()
@@ -74,10 +75,20 @@ namespace GYM.BLL.Services
                 return false;
             }
 
-            var Member = _mapper.Map<Member>(memberModelView);
+            var photoName = _attachementService.Upload("members", memberModelView.PhotoFile);
+            if (string.IsNullOrEmpty(photoName))
+                return false;
 
+            var Member = _mapper.Map<Member>(memberModelView);
+            Member.Photo = photoName;
             _unitOfWork.Repository<Member>().Add(Member);
-            return await _unitOfWork.SaveChangesAsync()>0;
+            var IsCreated = await _unitOfWork.SaveChangesAsync()>0;
+            if (!IsCreated)
+            {
+                _attachementService.Delete("members",photoName);
+                return false;
+            }
+            return true;
         }
 
 
@@ -124,7 +135,13 @@ namespace GYM.BLL.Services
             {
                 _unitOfWork.Repository<Member>().Delete(id);
             }
-            return await _unitOfWork.SaveChangesAsync() > 0;
+            var IsDeleted =  await _unitOfWork.SaveChangesAsync() > 0;
+            if(IsDeleted)
+            {
+                _attachementService.Delete("members", member.Photo);
+                return true;
+            }
+            return false;
         }
 
 

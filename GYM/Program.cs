@@ -1,3 +1,4 @@
+using GYM.BLL.AttachementService;
 using GYM.BLL.Interfaces;
 using GYM.BLL.Mapping;
 using GYM.BLL.Services;
@@ -41,6 +42,7 @@ namespace GYM
             builder.Services.AddScoped<ITrainerService, TrainerService>();
             builder.Services.AddScoped<IPlanService, PlanService>();
             builder.Services.AddScoped<ISessionService, SessionService>();
+            builder.Services.AddScoped<IAttachementService, AttachementService>();
 
             builder.Services.AddAutoMapper(x => x.AddProfile(new MappingProfiles()));
 

@@ -5,11 +5,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using GYM.DAL.Entities.Enum;
+using Microsoft.AspNetCore.Http;
 
 namespace GYM.BLL.ModelViews.MemebersModelViews
 {
     public class CreateMemberModelView
     {
+        [Required(ErrorMessage = "Photo is required")]
+        [Display(Name = "Member Photo")]
+        public IFormFile PhotoFile { get; set; } = null!;
         
         [Required(ErrorMessage = "Name is required")]
         [DataType(DataType.Text)]

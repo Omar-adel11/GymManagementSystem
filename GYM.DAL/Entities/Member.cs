@@ -9,7 +9,7 @@ namespace GYM.DAL.Entities
     public class Member : GYMUser
     {
         //CreateAt --> JoinDate
-        public string? Photo { get; set; }
+        public string Photo { get; set; } = null!;
 
         #region Member-HealthRecord Relationship
         public HealthRecord HealthRecord { get; set; } = null!;
