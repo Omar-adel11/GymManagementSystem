@@ -17,7 +17,7 @@ namespace GYM.DAL.Data
             {
                 var CategoryExists = context.Categorys.Any();
                 var planExists = context.Plans.Any();
-
+                
                 if (CategoryExists && planExists) return false;
 
                 if (!planExists)

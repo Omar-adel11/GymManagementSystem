@@ -1,6 +1,11 @@
 ﻿@using GYM.BLL.ModelViews.MemebersModelViews
 @model IEnumerable<MemeberModelView>
     
+@{
+    ViewData["Title"] = "Member";
+}
+
+
 @if (TempData["Message"] is not null)
 {
     <div id="Alert" class="alert alert-success alert-dismissible fade show">

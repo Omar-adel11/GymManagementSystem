@@ -1,5 +1,10 @@
 ﻿@model IEnumerable<TrainerModelView>
 
+@{
+    ViewData["Title"] = "Trainer";
+}
+
+
 <div class="container">
 
     @if (TempData["Message"] is not null)

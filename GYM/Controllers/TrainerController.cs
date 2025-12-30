@@ -1,9 +1,11 @@
 ﻿using GYM.BLL.Interfaces;
 using GYM.BLL.ModelViews.TrainersModelView;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GYM.Controllers
 {
+    [Authorize(Roles = "SuperAdmin")]
     public class TrainerController(ITrainerService _trainerService) : Controller
     {
         public IActionResult Index()

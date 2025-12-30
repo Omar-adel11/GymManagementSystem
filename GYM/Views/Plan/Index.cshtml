@@ -1,6 +1,11 @@
 ﻿@using GYM.BLL.ModelViews.PlansModelViews
 @model IEnumerable<PlanModelView>
 
+@{
+    ViewData["Title"] = "Plan";
+}
+
+
 @if (TempData["Message"] is not null)
 {
     <div id="Alert" class="alert alert-success alert-dismissible fade show">

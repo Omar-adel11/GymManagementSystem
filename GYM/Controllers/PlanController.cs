@@ -1,9 +1,11 @@
 ﻿using GYM.BLL.ModelViews.PlansModelViews;
 using GYM.BLL.Services.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GYM.Controllers
 {
+    [Authorize]
     public class PlanController(IPlanService _planService) : Controller
     {
         public IActionResult Index()

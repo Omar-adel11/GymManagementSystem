@@ -1,10 +1,12 @@
 ﻿using GYM.BLL.Interfaces;
 using GYM.BLL.ModelViews.MemebersModelViews;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace GYM.Controllers
 {
+    [Authorize(Roles ="SuperAdmin")]
     public class MemberController(IMemberService _memberService) : Controller
     {
         public IActionResult Index()

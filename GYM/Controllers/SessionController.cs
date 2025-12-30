@@ -1,10 +1,12 @@
 ﻿using GYM.BLL.Interfaces;
 using GYM.BLL.ModelViews.SessionsModelViews;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace GYM.Controllers
 {
+    [Authorize]
     public class SessionController(ISessionService _sessionService) : Controller
     {
         

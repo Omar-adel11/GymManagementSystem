@@ -5,17 +5,25 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using GYM.DAL.Entities;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace GYM.DAL.Data.Contexts
 {
-    public class GYMDbContext : DbContext
+    public class GYMDbContext : IdentityDbContext<ApplicationUser>
     {
         public GYMDbContext(DbContextOptions<GYMDbContext> options) : base(options) { }
        
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating( modelBuilder);
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+            modelBuilder.Entity<ApplicationUser>(eb =>
+            {
+                eb.Property(x=>x.FirstName).IsRequired().HasColumnType("varchar").HasMaxLength(50);
+                eb.Property(x=>x.LastName).IsRequired().HasColumnType("varchar").HasMaxLength(50);
+            });
         }
 
         public DbSet<Member> Members { get; set; }

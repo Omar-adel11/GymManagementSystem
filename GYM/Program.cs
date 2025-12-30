@@ -5,11 +5,13 @@ using GYM.BLL.Services;
 using GYM.BLL.Services.Interfaces;
 using GYM.DAL.Data;
 using GYM.DAL.Data.Contexts;
+using GYM.DAL.Entities;
 using GYM.DAL.Interfaces;
 using GYM.DAL.Repositories;
 using GymManagementBLL.Services.Classes;
 using GymManagementDAL.Repositories.Classes;
 using GymManagementDAL.Repositories.Interfaces;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace GYM
@@ -43,19 +45,32 @@ namespace GYM
             builder.Services.AddScoped<IPlanService, PlanService>();
             builder.Services.AddScoped<ISessionService, SessionService>();
             builder.Services.AddScoped<IAttachementService, AttachementService>();
+            builder.Services.AddScoped<IAccountService, AccountService>();
 
             builder.Services.AddAutoMapper(x => x.AddProfile(new MappingProfiles()));
 
+            builder.Services.AddIdentity<ApplicationUser, IdentityRole>(conf =>
+            {
+                conf.User.RequireUniqueEmail = true;
+            }).AddEntityFrameworkStores<GYMDbContext>();
+
+            builder.Services.ConfigureApplicationCookie(opt =>
+            {
+                opt.AccessDeniedPath = "/Account/AccessDenied";
+            });
 
             var app = builder.Build();
 
             using var scope = app.Services.CreateScope();
             var context = scope.ServiceProvider.GetRequiredService<GYMDbContext>();
+            var roleManager = scope.ServiceProvider.GetRequiredService < RoleManager<IdentityRole>>();
+            var userManager = scope.ServiceProvider.GetRequiredService < UserManager<ApplicationUser>>();
             var pendingMigrations = context.Database.GetPendingMigrations();
             if(pendingMigrations.Any())
                 context.Database.Migrate();
 
             DataSeeding.SeedData(context);
+            IDentityDbContextSeeding.SeedData(roleManager, userManager).Wait();
 
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
@@ -70,12 +85,12 @@ namespace GYM
             app.UseStaticFiles();
 
             app.UseRouting();
-
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}");
+                pattern: "{controller=Account}/{action=Login}/{id?}");
 
             app.Run();
         }
