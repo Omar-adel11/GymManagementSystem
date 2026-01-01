@@ -11,13 +11,16 @@ using GymManagementDAL.Repositories.Interfaces;
 
 namespace GYM.DAL.Repositories
 {
-    public class UnitOfWork(GYMDbContext _context, ISessionRepository _sessionRepository,IMembershipRepository _membershipRepositpry) : IUnitOfWork
+    public class UnitOfWork(GYMDbContext _context, 
+        ISessionRepository _sessionRepository,
+        IMembershipRepository _membershipRepositpry,
+        IBookingRepository _bookingRepository) : IUnitOfWork
     {
         private readonly ConcurrentDictionary<string, object> _repositories = new();
 
         public ISessionRepository sessionRepository { get => _sessionRepository; }
 
-        
+        public IBookingRepository bookingRepository { get => _bookingRepository; }
 
         public IPlanRepository PlanRepository()
         {
